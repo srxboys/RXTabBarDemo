@@ -17,7 +17,15 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
     
+//    self.window.rootViewController = 5s 广告
+    RXTabBarController * tabbar = [[RXTabBarController alloc] init];
+    self.window.rootViewController = tabbar;
+//    [tabbar showController];
+    
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

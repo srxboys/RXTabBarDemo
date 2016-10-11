@@ -1,5 +1,5 @@
 //
-//  RXTabBarController.h
+//  RXTabBarButtonView.h
 //  RXTabBarDemo
 //
 //  Created by srx on 16/10/11.
@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RXTabBarController : UIViewController
-@property (nonatomic, assign) NSInteger selectIndex;
-- (void)showController;
+@interface RXTabBarButtonView : UIView
+
 @end

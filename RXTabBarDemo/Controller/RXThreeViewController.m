@@ -1,22 +1,22 @@
 //
-//  RXSecondViewController.m
+//  RXThreeViewController.m
 //  RXTabBarDemo
 //
 //  Created by srx on 16/10/11.
 //  Copyright © 2016年 https://github.com/srxboys. All rights reserved.
 //
 
-#import "RXSecondViewController.h"
+#import "RXThreeViewController.h"
 
-@interface RXSecondViewController ()
+@interface RXThreeViewController ()
 
 @end
 
-@implementation RXSecondViewController
+@implementation RXThreeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"首页的子夜";
+    self.title = @"不知道";
 }
 
 - (void)didReceiveMemoryWarning {

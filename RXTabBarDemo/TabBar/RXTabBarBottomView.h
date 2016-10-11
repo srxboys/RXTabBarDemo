@@ -12,13 +12,14 @@
 
 @interface RXTabBarBottomView : UIView
 
-@property (nonatomic, assign, readonly) NSInteger tagBar;//tag 0为nil 1开始
+@property (nonatomic, assign) NSInteger selectedIndex;
 
 /** 设置通用 字体大小颜色 */
-- (void)barButtonCommentFont:(UIFont*)font normalColor:(UIColor *)NormalColor selectedColor:(UIColor *)SelectedColor;
+- (void)barButtonCommentFont:(UIFont*)font normalColor:(UIColor *)normalColor selectedColor:(UIColor *)selectedColor;
+- (void)barButtonCommentNomalFont:(UIFont*)nomalFont selectedFont:(UIFont *)selectedFont normalColor:(UIColor *)normalColor selectedColor:(UIColor *)selectedColor;
 
 /** 改变某个 字体大小颜色 */
-- (void)barButtonWithTag:(NSInteger)tag fontFont:(UIFont*)font normalColor:(UIColor *)NormalColor selectedColor:(UIColor *)SelectedColor;
+- (void)barButtonWithTag:(NSInteger)tag nomalFont:(UIFont*)nomalFont selectedFont:(UIFont *)selectedFont normalColor:(UIColor *)NormalColor selectedColor:(UIColor *)SelectedColor;
 
 /** 添加 标签 按钮 */
 - (void)addBarButtonWithTitle:(NSString *)title normalImgName:(NSString *)NormalImgName selectedImgName:(NSString *)SelectedImgName;
@@ -28,5 +29,7 @@
 
 /** 删除 标签 按钮 */
 - (void)removeBarButtonWithIndex:(NSInteger)num;
+
+- (void)removeALLBar;
 
 @end

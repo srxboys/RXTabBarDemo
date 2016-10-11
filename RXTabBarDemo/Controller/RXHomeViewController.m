@@ -20,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"首页";
     
     _secondController = [[RXSecondViewController alloc] init];
 

@@ -8,25 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		6C2F65D01DAC9CF8006CE821 /* RXSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2F65CF1DAC9CF8006CE821 /* RXSecondViewController.m */; };
+		6C2F65D41DACA3F7006CE821 /* RXThreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2F65D31DACA3F7006CE821 /* RXThreeViewController.m */; };
 		6C91D1411DAC769C00870EC7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C91D1401DAC769C00870EC7 /* main.m */; };
 		6C91D1441DAC769C00870EC7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C91D1431DAC769C00870EC7 /* AppDelegate.m */; };
-		6C91D14A1DAC769C00870EC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C91D1481DAC769C00870EC7 /* Main.storyboard */; };
 		6C91D14C1DAC769C00870EC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C91D14B1DAC769C00870EC7 /* Assets.xcassets */; };
 		6C91D14F1DAC769C00870EC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C91D14D1DAC769C00870EC7 /* LaunchScreen.storyboard */; };
 		6C91D15F1DAC80F900870EC7 /* RXTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C91D15E1DAC80F900870EC7 /* RXTabBarController.m */; };
 		6C91D1621DAC811D00870EC7 /* RXTabBarBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C91D1611DAC811D00870EC7 /* RXTabBarBottomView.m */; };
 		6C91D1671DAC8CFE00870EC7 /* RXBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C91D1661DAC8CFE00870EC7 /* RXBaseViewController.m */; };
 		6C91D16A1DAC8D1300870EC7 /* RXHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C91D1691DAC8D1300870EC7 /* RXHomeViewController.m */; };
+		6CD75D501DACC091001450D4 /* RXTabBarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD75D4F1DACC091001450D4 /* RXTabBarModel.m */; };
+		6CD75D531DACC255001450D4 /* RXTabBarButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD75D521DACC255001450D4 /* RXTabBarButtonView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6C2F65CE1DAC9CF8006CE821 /* RXSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXSecondViewController.h; sourceTree = "<group>"; };
 		6C2F65CF1DAC9CF8006CE821 /* RXSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXSecondViewController.m; sourceTree = "<group>"; };
+		6C2F65D21DACA3F7006CE821 /* RXThreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXThreeViewController.h; sourceTree = "<group>"; };
+		6C2F65D31DACA3F7006CE821 /* RXThreeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXThreeViewController.m; sourceTree = "<group>"; };
 		6C91D13C1DAC769C00870EC7 /* RXTabBarDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RXTabBarDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C91D1401DAC769C00870EC7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6C91D1421DAC769C00870EC7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6C91D1431DAC769C00870EC7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6C91D1491DAC769C00870EC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6C91D14B1DAC769C00870EC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C91D14E1DAC769C00870EC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6C91D1501DAC769C00870EC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -38,6 +41,10 @@
 		6C91D1661DAC8CFE00870EC7 /* RXBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXBaseViewController.m; sourceTree = "<group>"; };
 		6C91D1681DAC8D1300870EC7 /* RXHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXHomeViewController.h; sourceTree = "<group>"; };
 		6C91D1691DAC8D1300870EC7 /* RXHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXHomeViewController.m; sourceTree = "<group>"; };
+		6CD75D4E1DACC091001450D4 /* RXTabBarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXTabBarModel.h; sourceTree = "<group>"; };
+		6CD75D4F1DACC091001450D4 /* RXTabBarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXTabBarModel.m; sourceTree = "<group>"; };
+		6CD75D511DACC255001450D4 /* RXTabBarButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXTabBarButtonView.h; sourceTree = "<group>"; };
+		6CD75D521DACC255001450D4 /* RXTabBarButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXTabBarButtonView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +84,6 @@
 				6C91D15C1DAC809C00870EC7 /* TabBar */,
 				6C91D1421DAC769C00870EC7 /* AppDelegate.h */,
 				6C91D1431DAC769C00870EC7 /* AppDelegate.m */,
-				6C91D1481DAC769C00870EC7 /* Main.storyboard */,
 				6C91D14B1DAC769C00870EC7 /* Assets.xcassets */,
 				6C91D14D1DAC769C00870EC7 /* LaunchScreen.storyboard */,
 				6C91D1501DAC769C00870EC7 /* Info.plist */,
@@ -101,6 +107,8 @@
 				6C91D1691DAC8D1300870EC7 /* RXHomeViewController.m */,
 				6C2F65CE1DAC9CF8006CE821 /* RXSecondViewController.h */,
 				6C2F65CF1DAC9CF8006CE821 /* RXSecondViewController.m */,
+				6C2F65D21DACA3F7006CE821 /* RXThreeViewController.h */,
+				6C2F65D31DACA3F7006CE821 /* RXThreeViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -122,6 +130,8 @@
 		6C91D15C1DAC809C00870EC7 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				6CD75D4C1DACC071001450D4 /* Model */,
+				6CD75D4D1DACC071001450D4 /* View */,
 				6C91D15D1DAC80F900870EC7 /* RXTabBarController.h */,
 				6C91D15E1DAC80F900870EC7 /* RXTabBarController.m */,
 				6C91D1601DAC811D00870EC7 /* RXTabBarBottomView.h */,
@@ -137,6 +147,24 @@
 				6C91D1661DAC8CFE00870EC7 /* RXBaseViewController.m */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		6CD75D4C1DACC071001450D4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6CD75D4E1DACC091001450D4 /* RXTabBarModel.h */,
+				6CD75D4F1DACC091001450D4 /* RXTabBarModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6CD75D4D1DACC071001450D4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6CD75D511DACC255001450D4 /* RXTabBarButtonView.h */,
+				6CD75D521DACC255001450D4 /* RXTabBarButtonView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,7 +226,6 @@
 			files = (
 				6C91D14F1DAC769C00870EC7 /* LaunchScreen.storyboard in Resources */,
 				6C91D14C1DAC769C00870EC7 /* Assets.xcassets in Resources */,
-				6C91D14A1DAC769C00870EC7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,24 +239,19 @@
 				6C91D1671DAC8CFE00870EC7 /* RXBaseViewController.m in Sources */,
 				6C91D1441DAC769C00870EC7 /* AppDelegate.m in Sources */,
 				6C2F65D01DAC9CF8006CE821 /* RXSecondViewController.m in Sources */,
+				6C2F65D41DACA3F7006CE821 /* RXThreeViewController.m in Sources */,
 				6C91D1621DAC811D00870EC7 /* RXTabBarBottomView.m in Sources */,
 				6C91D16A1DAC8D1300870EC7 /* RXHomeViewController.m in Sources */,
 				6C91D15F1DAC80F900870EC7 /* RXTabBarController.m in Sources */,
 				6C91D1411DAC769C00870EC7 /* main.m in Sources */,
+				6CD75D531DACC255001450D4 /* RXTabBarButtonView.m in Sources */,
+				6CD75D501DACC091001450D4 /* RXTabBarModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		6C91D1481DAC769C00870EC7 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6C91D1491DAC769C00870EC7 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		6C91D14D1DAC769C00870EC7 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -328,6 +350,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RXTabBarDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = RX.RXTabBarDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -339,6 +362,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RXTabBarDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = RX.RXTabBarDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

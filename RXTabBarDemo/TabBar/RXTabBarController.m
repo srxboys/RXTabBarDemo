@@ -10,12 +10,19 @@
 #import "RXTabBarBottomView.h"
 
 #import "RXHomeViewController.h"
+#import "RXThreeViewController.h"
 
-@interface RXTabBarController ()
+#define NavHeight     64
+#define TabbarHeight  49
+
+#define ScreenWidth  [UIScreen mainScreen].bounds.size.width
+#define ScreenHeight [UIScreen mainScreen].bounds.size.height
+
+@interface RXTabBarController ()<UINavigationControllerDelegate>
 {
     RXTabBarBottomView * _bottomBar;
     
-    RXHomeViewController * _home;
+    UIViewController * _currentActivitlyController;
 }
 @end
 
@@ -23,15 +30,76 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
-    _bottomBar = [[RXTabBarBottomView alloc] initWithFrame:self.tabBar.bounds];
-    [self.tabBar addSubview:_bottomBar];
     
-    _home = [[RXHomeViewController alloc] init];
-    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:_home];
+    self.view.backgroundColor = [UIColor blueColor];
+//    return;
+    //标签栏
+    _bottomBar = [[RXTabBarBottomView alloc] init];
+    [self.view addSubview:_bottomBar];
+    
+    // ---- 控制器 ---
+    RXHomeViewController * home = [[RXHomeViewController alloc] init];
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:home];
+    nav.delegate = self;
     [self addChildViewController:nav];
+    
+    
+    RXThreeViewController * vc = [[RXThreeViewController alloc] init];
+    UINavigationController * nav2 = [[UINavigationController alloc] initWithRootViewController:vc];
+    nav2.delegate = self;
+    [self addChildViewController:nav2];
+    
+    
+   
+    
+    [_bottomBar addBarButtonWithTitle:@"推荐" normalImgName:@"tab_0" selectedImgName:@"tab_0_h"];
+    [_bottomBar addBarButtonWithTitle:@"分类" normalImgName:@"tab_1" selectedImgName:@"tab_1_h"];
+    
+    [self showController];
 }
 
+- (void)showController {
+    self.selectIndex = 0;
+    if(self.childViewControllers.count <= 0) return;
+    
+    UIViewController * vc = self.childViewControllers[0];
+    NSLog(@"%@", NSStringFromCGRect(vc.view.frame));
+    [self.view addSubview:vc.view];
+    [self.view bringSubviewToFront:_bottomBar];
+}
+
+
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    _bottomBar.hidden = viewController.hidesBottomBarWhenPushed;
+    if([self.childViewControllers containsObject:viewController]) {
+        viewController.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight - TabbarHeight);
+    }
+    else {
+        viewController.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+    }
+    
+    _currentActivitlyController = viewController;
+}
+
+- (void)setSelectIndex:(NSInteger)selectIndex {
+    if(_selectIndex == selectIndex) {
+        return;
+    }
+    
+    //改变 上一个按钮的样式 为nomal
+    // 改index 按钮的样式 为selected
+    
+    _selectIndex = selectIndex;
+    
+    UIViewController * currentController = self.childViewControllers[selectIndex];
+    
+    [self.view addSubview:currentController.view];
+    
+    [self.view sendSubviewToBack:_currentActivitlyController.view];
+    
+    [self.view bringSubviewToFront:_bottomBar];
+}
 
 
 - (void)didReceiveMemoryWarning {

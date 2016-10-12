@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RXTabBarButtonView : UIView
+@interface RXTabBarButton : UIControl
 
 @end

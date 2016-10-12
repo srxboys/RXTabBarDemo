@@ -6,8 +6,8 @@
 //  Copyright © 2016年 https://github.com/srxboys. All rights reserved.
 //
 
-#import "RXTabBarButtonView.h"
+#import "RXTabBarButton.h"
 
-@implementation RXTabBarButtonView
+@implementation RXTabBarButton
 
 @end

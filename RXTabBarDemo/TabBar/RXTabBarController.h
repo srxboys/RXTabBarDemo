@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RXTabBarController : UIViewController
-@property (nonatomic, assign) NSInteger selectIndex;
+@interface RXTabBarController : UITabBarController
 - (void)showController;
 @end

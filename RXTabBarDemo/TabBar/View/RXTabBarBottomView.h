@@ -8,9 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-/** 默认 字体大小颜色 */
+@protocol RXTabBarBottomViewDelegate <NSObject>
+
+@required
+- (void)tabBarBottomBarItemClick:(NSInteger)index;
+
+@optional
+
+@end
 
 @interface RXTabBarBottomView : UIView
+
+@property (nonatomic, strong) id<RXTabBarBottomViewDelegate>delegate;
 
 @property (nonatomic, assign) NSInteger selectedIndex;
 
@@ -22,14 +31,17 @@
 - (void)barButtonWithTag:(NSInteger)tag nomalFont:(UIFont*)nomalFont selectedFont:(UIFont *)selectedFont normalColor:(UIColor *)NormalColor selectedColor:(UIColor *)SelectedColor;
 
 /** 添加 标签 按钮 */
-- (void)addBarButtonWithTitle:(NSString *)title normalImgName:(NSString *)NormalImgName selectedImgName:(NSString *)SelectedImgName;
+- (void)addBarButtonWithTitle:(NSString *)title normalImgName:(NSString *)ormalImgName selectedImgName:(NSString *)selectedImgName;
 
-/** 插入 标签 按钮 */
-- (void)insertBarButtonWithIndex:(NSInteger)num title:(NSString *)title normalImgName:(NSString *)NormalImgName selectedImgName:(NSString *)SelectedImgName;
+/** 根据位置插入 标签 按钮 */
+- (void)insertBarButtonWithIndex:(NSInteger)num title:(NSString *)title normalImgName:(NSString *)normalImgName selectedImgName:(NSString *)selectedImgName;
 
 /** 删除 标签 按钮 */
 - (void)removeBarButtonWithIndex:(NSInteger)num;
 
 - (void)removeALLBar;
+
+/** 刷新 后，重新排列界面 */
+- (void)reloadTabBarUI;
 
 @end

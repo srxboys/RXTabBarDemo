@@ -8,4 +8,7 @@
 
 #import "RXTabBarModel.h"
 
+@implementation RXTabBarButtonModel
 
+
+@end

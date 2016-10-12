@@ -18,7 +18,7 @@
 #define ScreenWidth  [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 
-@interface RXTabBarController ()<UINavigationControllerDelegate>
+@interface RXTabBarController ()<UINavigationControllerDelegate, RXTabBarBottomViewDelegate>
 {
     RXTabBarBottomView * _bottomBar;
     
@@ -31,74 +31,71 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     self.view.backgroundColor = [UIColor blueColor];
 //    return;
-    //标签栏
-    _bottomBar = [[RXTabBarBottomView alloc] init];
-    [self.view addSubview:_bottomBar];
     
     // ---- 控制器 ---
     RXHomeViewController * home = [[RXHomeViewController alloc] init];
     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:home];
+    home.tabBarItem.title = @"";
     nav.delegate = self;
-    [self addChildViewController:nav];
+
     
     
     RXThreeViewController * vc = [[RXThreeViewController alloc] init];
     UINavigationController * nav2 = [[UINavigationController alloc] initWithRootViewController:vc];
+    vc.tabBarItem.title = @"";
     nav2.delegate = self;
-    [self addChildViewController:nav2];
+    self.viewControllers = @[nav,nav2];
+    [[UITabBar appearance] setTintColor:[UIColor clearColor]];
+    [[UITabBar appearance] setBackgroundImage:[[UIImage alloc] init]];
+    [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];
+
     
-    
-   
-    
+    //标签栏
+    _bottomBar = [[RXTabBarBottomView alloc] initWithFrame:self.tabBar.bounds];
+    _bottomBar.delegate = self;
+    [self.tabBar addSubview:_bottomBar];
     [_bottomBar addBarButtonWithTitle:@"推荐" normalImgName:@"tab_0" selectedImgName:@"tab_0_h"];
     [_bottomBar addBarButtonWithTitle:@"分类" normalImgName:@"tab_1" selectedImgName:@"tab_1_h"];
     
-    [self showController];
+    [_bottomBar reloadTabBarUI];
+    
+    
+    //显示第一个
+    self.selectIndex = 0;
+    _currentActivitlyController = nav;
 }
 
-- (void)showController {
-    self.selectIndex = 0;
-    if(self.childViewControllers.count <= 0) return;
-    
-    UIViewController * vc = self.childViewControllers[0];
-    NSLog(@"%@", NSStringFromCGRect(vc.view.frame));
-    [self.view addSubview:vc.view];
-    [self.view bringSubviewToFront:_bottomBar];
-}
 
 
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    _bottomBar.hidden = viewController.hidesBottomBarWhenPushed;
-    if([self.childViewControllers containsObject:viewController]) {
-        viewController.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight - TabbarHeight);
-    }
-    else {
-        viewController.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
-    }
     
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     _currentActivitlyController = viewController;
 }
 
+
+
 - (void)setSelectIndex:(NSInteger)selectIndex {
-    if(_selectIndex == selectIndex) {
+    if(self.selectedIndex == selectIndex) {
         return;
     }
     
+    if(self.viewControllers.count <= selectIndex) return;
     //改变 上一个按钮的样式 为nomal
     // 改index 按钮的样式 为selected
-    
-    _selectIndex = selectIndex;
-    
-    UIViewController * currentController = self.childViewControllers[selectIndex];
-    
-    [self.view addSubview:currentController.view];
-    
-    [self.view sendSubviewToBack:_currentActivitlyController.view];
-    
-    [self.view bringSubviewToFront:_bottomBar];
+    self.selectedIndex = selectIndex;
+}
+
+
+
+- (void)tabBarBottomBarItemClick:(NSInteger)index {
+    [self setSelectIndex:index];
 }
 
 

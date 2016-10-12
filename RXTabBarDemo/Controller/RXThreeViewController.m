@@ -7,6 +7,10 @@
 //
 
 #import "RXThreeViewController.h"
+#import "FLAnimatedImageView.h"
+#import "FLAnimatedImageView+WebCache.h"
+
+#define ImageURL @"http://img.lanrentuku.com/img/allimg/1212/5-121204193R6.gif"
 
 @interface RXThreeViewController ()
 
@@ -17,6 +21,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"不知道";
+    
+    FLAnimatedImageView * imgView = [[FLAnimatedImageView alloc] initWithFrame:CGRectMake(10, 70, 20, 20)];
+    imgView.backgroundColor = [UIColor redColor];
+    [imgView sd_setImageWithURL:[NSURL URLWithString:ImageURL]];
+    [self.view addSubview:imgView];
 }
 
 - (void)didReceiveMemoryWarning {

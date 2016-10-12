@@ -18,21 +18,33 @@
 #define LINE_Height 0.5
 
 #import "RXTabBarBottomView.h" //底部bar
+#import "FLAnimatedImageView.h"
+#import "FLAnimatedImageView+WebCache.h"
 
 #import "RXTabBarModel.h" //数据模型
 #import "RXTabBarButton.h" //按钮
+
+/** 默认字体颜色 */
+#define DEFAUL_FONT_NOMAL     [UIFont systemFontOfSize:DEFAULT_LABEL_HEIGHT]
+#define DEFAUL_FONT_SELECTED  [UIFont systemFontOfSize:DEFAULT_LABEL_HEIGHT]
+#define DEFAUL_COLOR_NOMAL    [UIColor darkGrayColor]
+#define DEFAUL_COLOR_SELECTED [UIColor redColor]
+
 
 @interface RXTabBarBottomView ()
 {
     NSMutableArray * _barArray;
     
+    FLAnimatedImageView * _backImageView;
+    
     UIView * _lineView;
     
-    //默认字体颜色
     UIFont  * _barNomalFont;
     UIFont  * _barSelectedFont;
     UIColor * _barNomalColorl;
     UIColor * _barSelectColor;
+    
+    RXTabBarButton * _currentBtn;
 }
 @end
 
@@ -46,17 +58,21 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if(self) {
-        self.backgroundColor = [UIColor redColor];
+        
         //默认字体颜色
-        _barNomalFont = [UIFont systemFontOfSize:14];
-        _barSelectedFont = [UIFont systemFontOfSize:14];
-        _barNomalColorl = [UIColor darkGrayColor];
-        _barSelectColor = [UIColor redColor];
+        _barNomalFont = DEFAUL_FONT_NOMAL;
+        _barSelectedFont = DEFAUL_FONT_SELECTED;
+        _barNomalColorl = DEFAUL_COLOR_NOMAL;
+        _barSelectColor = DEFAUL_COLOR_SELECTED;
         _barArray = [[NSMutableArray alloc] init];
         
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, LINE_Height)];
         _lineView.backgroundColor = [UIColor darkGrayColor];
         [self addSubview:_lineView];
+        
+        _backImageView = [[FLAnimatedImageView alloc] initWithFrame:self.bounds];
+        _backImageView.backgroundColor = [UIColor clearColor];
+        [self addSubview:_backImageView];
     }
     return self;
 }
@@ -65,6 +81,13 @@
     if(selectedIndex > _barArray.count)
     
     _selectedIndex = selectedIndex;
+}
+
+- (void)setBackImageURL:(NSString *)backImageURL {
+    if(backImageURL.length <= 0) return;
+    _backImageURL = backImageURL;
+    [_backImageView sd_setImageWithURL:[NSURL URLWithString:backImageURL]];
+
 }
 
 /** 设置通用 字体大小颜色 */
@@ -86,7 +109,7 @@
 
 
 /** 添加 标签 按钮 */
-- (void)addBarButtonWithTitle:(NSString *)title normalImgName:(NSString *)normalImgName selectedImgName:(NSString *)selectedImgName {
+- (void)addBarButtonWithTitle:(NSString *)title normalImgName:(NSString *)normalImgName selectedImgName:(NSString *)selectedImgName networkFaidImage:(NSString *)image{
     
     //~~~~ coding ~~~~
     
@@ -98,9 +121,25 @@
     model.selectedColor = _barSelectColor;
     model.nomalImage = normalImgName;
     model.selectedImage = selectedImgName;
+    model.networkFaidImage = image;
     [_barArray addObject:model];
     
 }
+
+- (void)addActivityButtonWithTitle:(NSString *)title normalImgName:(NSString *)normalImgName selectedImgName:(NSString *)selectedImgName {
+    RXTabBarButtonModel * model = [[RXTabBarButtonModel alloc] init];
+    model.title = title;
+    model.nomalFont = _barNomalFont;
+    model.selectedFont = _barSelectedFont;
+    model.nomalColor = _barNomalColorl;
+    model.selectedColor = _barSelectColor;
+    model.nomalImage = normalImgName;
+    model.selectedImage = selectedImgName;
+    
+    [_barArray insertObject:model atIndex:_barArray.count/2];
+    
+}
+
 
 /** 插入 标签 按钮 */
 - (void)insertBarButtonWithIndex:(NSInteger)num title:(NSString *)title normalImgName:(NSString *)normalImgName selectedImgName:(NSString *)selectedImgName {
@@ -144,51 +183,84 @@
     [self reloadTabBarUI];
 }
 
-- (void)removeALLTabBarButtonView {
-    for(UIView * view in self.subviews) {
-        [view removeFromSuperview];
-    }
-}
+//- (void)removeALLTabBarButtonView {
+//    for(UIView * view in self.subviews) {
+//        [view removeFromSuperview];
+//    }
+//}
 
 - (void)reloadTabBarUI {
     NSInteger startIndex = 0;
-    CGFloat width = 44;
-    CGFloat space = roundf(ScreenWidth - (width *_barArray.count))/(_barArray.count + 1);
+    //一种情况
+//    CGFloat width = 44;
+//    CGFloat space = roundf(ScreenWidth - (width *_barArray.count))/(_barArray.count + 1);
+    
+    //第二种比较 合理
+    CGFloat width = ScreenWidth /_barArray.count * 1.0;
+    CGFloat space = 0;
 
     CGFloat top = LINE_Height;
     CGFloat height = TabbarHeight - LINE_Height;
     
     
-    for(; startIndex < self.subviews.count; startIndex ++) {
-        
-        if([self.subviews[startIndex] isKindOfClass:[RXTabBarButton class]]) {
+    
+    
+    for (UIView * view in self.subviews) {
+        if([view isKindOfClass:[RXTabBarButton class]]) {
+            RXTabBarButtonModel * model = _barArray[startIndex];
+            
             RXTabBarButton * btn = self.subviews[startIndex];
             btn.frame = CGRectMake(space + (startIndex * (width + space)), top, width, height);
             btn.tag = startIndex + 1;
+            btn.model = model;
+            btn.isSelected = NO;
+            if(startIndex == 0) {
+                [self changeButton:btn status:YES];
+                btn.isSelected = YES;
+            }  
+            startIndex ++;
         }
     }
     
-    if(self.subviews.count <= 1) {
-        startIndex = 0;
-    }
     
     for(;startIndex < _barArray.count; startIndex ++) {
-        RXTabBarButton * btn = [[RXTabBarButton alloc] init];
-    
-        btn.frame = CGRectMake(space + (startIndex * (width + space)), top, width, height);
-        btn.backgroundColor = [UIColor whiteColor];
-        [self addSubview:btn];
-        btn.tag = startIndex + 1;
         
-        [btn addTarget:self action:@selector(tabBarItmeClick:) forControlEvents:UIControlEventTouchUpInside];
+        RXTabBarButtonModel * model = _barArray[startIndex];
+        
+        RXTabBarButton * btn = [[RXTabBarButton alloc] initWithFrame:CGRectMake(space + (startIndex * (width + space)), top, width, height)];
+//        btn.backgroundColor = [UIColor colorWithRed:(arc4random() % 255)/255.0 green:(arc4random() % 255)/255.0 blue:(arc4random() % 255)/255.0 alpha:1];
+        btn.backgroundColor = [UIColor clearColor];
+        btn.tag = startIndex + 1;
+        [btn setModel:model];
+        [btn addTarget:self action:@selector(tabBarItmeClick:)];
+        btn.isSelected = NO;
+        if(startIndex == 0) {
+            [self changeButton:btn status:YES];
+            btn.isSelected = YES;
+        }
+        
+        [self addSubview:btn];
+        
+        
     }
     
 }
 
 - (void)tabBarItmeClick:(RXTabBarButton *)btn {
-    
     if([self.delegate respondsToSelector:@selector(tabBarBottomBarItemClick:)]) {
+        [self changeButton:btn status:NO];
         [self.delegate tabBarBottomBarItemClick:btn.tag - 1];
+    }
+}
+
+- (void)changeButton:(RXTabBarButton *)btn status:(BOOL)status {
+    if(status) {
+        _currentBtn = btn;
+        [_currentBtn changeOFSelected];
+    }
+    else {
+        [_currentBtn changeOFNomal];
+        _currentBtn = btn;
     }
 }
 

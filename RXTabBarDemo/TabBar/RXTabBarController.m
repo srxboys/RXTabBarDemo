@@ -18,6 +18,9 @@
 #define ScreenWidth  [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 
+#define ImageURL @"http://img.lanrentuku.com/img/allimg/1212/5-121204193R6.gif"
+#define Activiety_URL @"http://img.lanrentuku.com/img/allimg/1212/5-121204193R1-50.gif"
+
 @interface RXTabBarController ()<UINavigationControllerDelegate, RXTabBarBottomViewDelegate>
 {
     RXTabBarBottomView * _bottomBar;
@@ -57,8 +60,12 @@
     _bottomBar = [[RXTabBarBottomView alloc] initWithFrame:self.tabBar.bounds];
     _bottomBar.delegate = self;
     [self.tabBar addSubview:_bottomBar];
-    [_bottomBar addBarButtonWithTitle:@"推荐" normalImgName:@"tab_0" selectedImgName:@"tab_0_h"];
-    [_bottomBar addBarButtonWithTitle:@"分类" normalImgName:@"tab_1" selectedImgName:@"tab_1_h"];
+    [_bottomBar addBarButtonWithTitle:@"推荐" normalImgName:@"tab_0" selectedImgName:@"tab_0_h" networkFaidImage:@"tab_0_h"];
+    [_bottomBar addBarButtonWithTitle:@"分类" normalImgName:@"tab_1" selectedImgName:ImageURL networkFaidImage:@"tab_1_h"];
+    
+    
+//    [_bottomBar addActivityButtonWithTitle:@"" normalImgName:ImageURL selectedImgName:ImageURL];
+//    _bottomBar.backImageURL = Activiety_URL;
     
     [_bottomBar reloadTabBarUI];
     
@@ -66,6 +73,13 @@
     //显示第一个
     self.selectIndex = 0;
     _currentActivitlyController = nav;
+    
+    
+    
+    UIImage * image = [UIImage imageNamed:@"tab_0"];
+    NSLog(@"%@", NSStringFromCGSize(image.size));
+
+    
 }
 
 

@@ -8,6 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RXTabBarButton : UIControl
+#define DEFAULT_LABEL_HEIGHT 10
+
+@class RXTabBarButtonModel;
+
+@interface RXTabBarButton : UIView
+@property (nonatomic, assign) BOOL isSelected;
+@property (nonatomic, copy) RXTabBarButtonModel * model;
+
+- (void)addTarget:(id)target action:(SEL)action;
+
+
+/** */
+- (void)changeOFNomal;
+
+/** */
+- (void)changeOFSelected;
 
 @end

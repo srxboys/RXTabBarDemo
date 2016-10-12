@@ -22,6 +22,7 @@
 @property (nonatomic, strong) id<RXTabBarBottomViewDelegate>delegate;
 
 @property (nonatomic, assign) NSInteger selectedIndex;
+@property (nonatomic, copy) NSString * backImageURL;
 
 /** 设置通用 字体大小颜色 */
 - (void)barButtonCommentFont:(UIFont*)font normalColor:(UIColor *)normalColor selectedColor:(UIColor *)selectedColor;
@@ -31,10 +32,11 @@
 - (void)barButtonWithTag:(NSInteger)tag nomalFont:(UIFont*)nomalFont selectedFont:(UIFont *)selectedFont normalColor:(UIColor *)NormalColor selectedColor:(UIColor *)SelectedColor;
 
 /** 添加 标签 按钮 */
-- (void)addBarButtonWithTitle:(NSString *)title normalImgName:(NSString *)ormalImgName selectedImgName:(NSString *)selectedImgName;
+- (void)addBarButtonWithTitle:(NSString *)title normalImgName:(NSString *)normalImgName selectedImgName:(NSString *)selectedImgName networkFaidImage:(NSString *)image;
+- (void)addActivityButtonWithTitle:(NSString *)title normalImgName:(NSString *)normalImgName selectedImgName:(NSString *)selectedImgName;
 
 /** 根据位置插入 标签 按钮 */
-- (void)insertBarButtonWithIndex:(NSInteger)num title:(NSString *)title normalImgName:(NSString *)normalImgName selectedImgName:(NSString *)selectedImgName;
+- (void)insertBarButtonWithIndex:(NSInteger)num title:(NSString *)title normalImgName:(NSString *)normalImgName selectedImgName:(NSString *)selectedImgName  __deprecated_msg("废弃");
 
 /** 删除 标签 按钮 */
 - (void)removeBarButtonWithIndex:(NSInteger)num;

@@ -16,6 +16,7 @@
 @property (nonatomic, copy) UIFont   * selectedFont;
 @property (nonatomic, copy) UIColor  * nomalColor;
 @property (nonatomic, copy) UIColor  * selectedColor;
+@property (nonatomic, copy) NSString * networkFaidImage;//固定那几个的默认值
 
 @property (nonatomic, assign) CGSize  size;
 @end

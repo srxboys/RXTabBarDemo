@@ -128,36 +128,40 @@
 
 
 - (void)changeContent {
+    _titleLabel.text = _model.title;
+    
     if(_isSelected) {
         _titleLabel.font = _model.selectedFont;
         _titleLabel.textColor = _model.selectedColor;
         
-        if([_model.selectedImage urlBOOL]) {
-            [_imageView sd_setImageWithURL:[NSURL URLWithString:_model.selectedImage] placeholderImage:nil];
-        }
-        else {
-            _imageView.image = [UIImage imageNamed:_model.selectedImage];
-            _imageSize = CGSizeMake(DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT);
-            
-        }
+        [self reloadImageViewContentimageName:_model.selectedImage];
     }
     else {
         _titleLabel.font = _model.nomalFont;
         _titleLabel.textColor = _model.nomalColor;
         
-        if([_model.nomalImage urlBOOL]) {
-            [_imageView sd_setImageWithURL:[NSURL URLWithString:_model.nomalImage] placeholderImage:[UIImage imageNamed:@""]];
-        }
-        else {
-            _imageView.image = [UIImage imageNamed:_model.nomalImage];
-            _imageSize = CGSizeMake(DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT);
-            
-        }
+        [self reloadImageViewContentimageName:_model.nomalImage];
     }
     
-    _titleLabel.text = _model.title;
     
-    [self reloadButtonUI];
+}
+
+- (void)reloadImageViewContentimageName:(NSString *)image {
+    if([_model.nomalImage urlBOOL]) {
+        __weak typeof(self)weakSelf = self;
+        [_imageView sd_setImageWithURL:[NSURL URLWithString:image] placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            _imageSize = image.size;
+            _imageView.frame = CGRectMake(CGRectGetMaxX(_imageView.frame), CGRectGetMaxY(_imageView.frame), image.size.width, image.size.height);
+//            NSLog(@"%@", NSStringFromCGSize(image.size));
+            [weakSelf reloadButtonUI];
+        }];
+    }
+    else {
+        _imageView.image = [UIImage imageNamed:image];
+        _imageSize = CGSizeMake(DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT);
+        _imageView.frame = CGRectMake(CGRectGetMaxX(_imageView.frame), CGRectGetMaxY(_imageView.frame), _imageSize.width, _imageSize.height);
+        [self reloadButtonUI];
+    }
 }
 
 
@@ -169,14 +173,14 @@
     
     
     CGSize imageSize = _imageSize;
-    if (imageSize.width != 0 && imageSize.height != 0) {
+    if (imageSize.width != 0 && imageSize.height != 0 && titleSize.height != 0) {
         CGFloat imageViewCenterY = CGRectGetHeight(self.frame) - 3 - titleSize.height - imageSize.height / 2 - 5;
         _imageView.center = CGPointMake(CGRectGetWidth(self.frame) / 2, imageViewCenterY);
         _imageView.center = _imageView.center;
     } else {
         CGPoint imageViewCenter = _imageView.center;
         imageViewCenter.x = CGRectGetWidth(self.frame) / 2;
-        imageViewCenter.y = (CGRectGetHeight(self.frame) - titleSize.height) / 2;
+        imageViewCenter.y = (CGRectGetHeight(self.frame) - titleSize.height) / 2 - 5;
         _imageView.center = imageViewCenter;
         _imageView.center = _imageView.center;
     }

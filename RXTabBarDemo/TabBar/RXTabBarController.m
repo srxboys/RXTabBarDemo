@@ -21,6 +21,8 @@
 #define ImageURL @"http://img.lanrentuku.com/img/allimg/1212/5-121204193R6.gif"
 #define Activiety_URL @"http://img.lanrentuku.com/img/allimg/1212/5-121204193R1-50.gif"
 
+#define GoodImgURL @"http://img.lanrentuku.com/img/allimg/1407/5-140FG92021-55.gif"
+
 @interface RXTabBarController ()<UINavigationControllerDelegate, RXTabBarBottomViewDelegate>
 {
     RXTabBarBottomView * _bottomBar;
@@ -64,7 +66,7 @@
     [_bottomBar addBarButtonWithTitle:@"分类" normalImgName:@"tab_1" selectedImgName:ImageURL networkFaidImage:@"tab_1_h"];
     
     
-//    [_bottomBar addActivityButtonWithTitle:@"" normalImgName:ImageURL selectedImgName:ImageURL];
+    [_bottomBar addActivityButtonWithTitle:@"" normalImgName:GoodImgURL selectedImgName:ImageURL];
 //    _bottomBar.backImageURL = Activiety_URL;
     
     [_bottomBar reloadTabBarUI];

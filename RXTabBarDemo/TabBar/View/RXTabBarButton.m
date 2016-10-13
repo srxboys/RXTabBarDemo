@@ -95,7 +95,9 @@
 
 - (void)setModel:(RXTabBarButtonModel *)model {
     _model = model;
+    _isSelected = self.tag <= 0 ? YES : NO;
     [self changeContent];
+
 }
 
 
@@ -146,10 +148,10 @@
     
 }
 
-- (void)reloadImageViewContentimageName:(NSString *)image {
-    if([_model.nomalImage urlBOOL]) {
+- (void)reloadImageViewContentimageName:(NSString *)imageString {
+    if([imageString urlBOOL]) {
         __weak typeof(self)weakSelf = self;
-        [_imageView sd_setImageWithURL:[NSURL URLWithString:image] placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        [_imageView sd_setImageWithURL:[NSURL URLWithString:imageString] placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             _imageSize = image.size;
             _imageView.frame = CGRectMake(CGRectGetMaxX(_imageView.frame), CGRectGetMaxY(_imageView.frame), image.size.width, image.size.height);
 //            NSLog(@"%@", NSStringFromCGSize(image.size));
@@ -157,7 +159,7 @@
         }];
     }
     else {
-        _imageView.image = [UIImage imageNamed:image];
+        _imageView.image = [UIImage imageNamed:imageString];
         _imageSize = CGSizeMake(DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT);
         _imageView.frame = CGRectMake(CGRectGetMaxX(_imageView.frame), CGRectGetMaxY(_imageView.frame), _imageSize.width, _imageSize.height);
         [self reloadButtonUI];

@@ -33,8 +33,6 @@
 
 @interface RXTabBarBottomView ()
 {
-    NSMutableArray * _barArray;
-    
     FLAnimatedImageView * _backImageView;
     
     UIView * _lineView;
@@ -59,6 +57,7 @@
     self = [super initWithFrame:frame];
     if(self) {
         
+        self.backgroundColor = [UIColor whiteColor];
         //默认字体颜色
         _barNomalFont = DEFAUL_FONT_NOMAL;
         _barSelectedFont = DEFAUL_FONT_SELECTED;
@@ -84,7 +83,9 @@
 }
 
 - (void)setBackImageURL:(NSString *)backImageURL {
-    if(backImageURL.length <= 0) return;
+    if(backImageURL.length <= 0 || backImageURL == nil) {
+        _backImageView.image = nil;
+    };
     _backImageURL = backImageURL;
     [_backImageView sd_setImageWithURL:[NSURL URLWithString:backImageURL]];
 
@@ -179,15 +180,18 @@
 
 - (void)removeALLBar {
     [_barArray removeAllObjects];
+    [self removeALLTabBarButtonView];
     _selectedIndex = 0;
     [self reloadTabBarUI];
 }
 
-//- (void)removeALLTabBarButtonView {
-//    for(UIView * view in self.subviews) {
-//        [view removeFromSuperview];
-//    }
-//}
+- (void)removeALLTabBarButtonView {
+    for (UIView * view in self.subviews) {
+        if([view isMemberOfClass:[RXTabBarButton class]]) {
+            [view removeFromSuperview];
+        }
+    }
+}
 
 - (void)reloadTabBarUI {
     NSInteger startIndex = 0;
@@ -204,20 +208,21 @@
     
     
     
-    
-    for (UIView * view in self.subviews) {
-        if([view isKindOfClass:[RXTabBarButton class]]) {
+    for (UIView *view in self.subviews) {
+        if([view isMemberOfClass:[RXTabBarButton class]]) {
             RXTabBarButtonModel * model = _barArray[startIndex];
             
-            RXTabBarButton * btn = self.subviews[startIndex];
+            RXTabBarButton * btn = (RXTabBarButton *)view;
             btn.frame = CGRectMake(space + (startIndex * (width + space)), top, width, height);
             btn.tag = startIndex + 1;
             btn.model = model;
             btn.isSelected = NO;
             if(startIndex == 0) {
-                [self changeButton:btn status:YES];
                 btn.isSelected = YES;
-            }  
+                _currentBtn = btn;
+                [self changeButton:btn status:YES];
+                
+            }
             startIndex ++;
         }
     }
@@ -235,8 +240,9 @@
         [btn addTarget:self action:@selector(tabBarItmeClick:)];
         btn.isSelected = NO;
         if(startIndex == 0) {
-            [self changeButton:btn status:YES];
             btn.isSelected = YES;
+            _currentBtn = btn;
+            [self changeButton:btn status:YES];
         }
         
         [self addSubview:btn];
@@ -254,6 +260,12 @@
 }
 
 - (void)changeButton:(RXTabBarButton *)btn status:(BOOL)status {
+    
+    if(_currentBtn.tag == btn.tag) {
+        [_currentBtn changeOFSelected];
+        return;
+    }
+    
     if(status) {
         _currentBtn = btn;
         [_currentBtn changeOFSelected];

@@ -14,6 +14,7 @@
 
 @interface RXTabBarButton : UIView
 @property (nonatomic, assign) BOOL isSelected;
+@property (nonatomic, assign) BOOL isActivity;
 @property (nonatomic, copy) RXTabBarButtonModel * model;
 
 - (void)addTarget:(id)target action:(SEL)action;

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface RXTabBarButtonModel : NSObject
+@property (nonatomic, assign) BOOL isActivity;
 @property (nonatomic, copy) NSString * title;
 @property (nonatomic, copy) NSString * nomalImage;
 @property (nonatomic, copy) NSString * selectedImage;

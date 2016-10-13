@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"首页";
-    
+//    self.view.backgroundColor = [UIColor magentaColor];
     _secondController = [[RXSecondViewController alloc] init];
 
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -16,5 +16,7 @@
     [_bottomBar reloadTabBarUI];
 ```
 
+![srxboys RXTabBarDemoGif](https://github.com/srxboys/RXTabBarDemo/blob/master/RXTabBarDemo/Mode/srxboys_RXTabBarDemo.gif)
+
 如果你有想说的可以 [issues I](https://github.com/srxboys/RXTabBarDemo/issues/new) 。
 :sweat_smile::sweat_smile::sweat_smile::sweat_smile::sweat_smile:

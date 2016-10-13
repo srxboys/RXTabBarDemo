@@ -20,7 +20,7 @@
 @interface RXTabBarBottomView : UIView
 
 @property (nonatomic, strong) id<RXTabBarBottomViewDelegate>delegate;
-
+@property (nonatomic, copy, readonly) NSMutableArray * barArray;
 @property (nonatomic, assign) NSInteger selectedIndex;
 @property (nonatomic, copy) NSString * backImageURL;
 

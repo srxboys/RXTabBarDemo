@@ -15,8 +15,11 @@
 #define NavHeight     64
 #define TabbarHeight  49
 
+
 #define ScreenWidth  [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
+
+#define TabBarStyleButtonTop  ScreenHeight - 100
 
 #define ImageURL @"http://img.lanrentuku.com/img/allimg/1212/5-121204193R6.gif"
 #define Activiety_URL @"http://img.lanrentuku.com/img/allimg/1212/5-121204193R1-50.gif"
@@ -28,6 +31,9 @@
     RXTabBarBottomView * _bottomBar;
     
     UIViewController * _currentActivitlyController;
+    
+    UIButton * _styleButtonOne;
+    UIButton * _styleButtonTwo;
 }
 @end
 
@@ -66,8 +72,6 @@
     [_bottomBar addBarButtonWithTitle:@"分类" normalImgName:@"tab_1" selectedImgName:ImageURL networkFaidImage:@"tab_1_h"];
     
     
-    [_bottomBar addActivityButtonWithTitle:@"" normalImgName:GoodImgURL selectedImgName:ImageURL];
-//    _bottomBar.backImageURL = Activiety_URL;
     
     [_bottomBar reloadTabBarUI];
     
@@ -80,11 +84,53 @@
     
     UIImage * image = [UIImage imageNamed:@"tab_0"];
     NSLog(@"%@", NSStringFromCGSize(image.size));
-
     
+    /**/
+    _styleButtonOne = [UIButton buttonWithType:UIButtonTypeCustom];
+    _styleButtonOne.frame = CGRectMake(10, TabBarStyleButtonTop , 70, 40);
+    _styleButtonOne.backgroundColor = [UIColor blueColor];
+    [_styleButtonOne setTitle:@"样式一" forState:UIControlStateNormal];
+    _styleButtonOne.tag = 1;
+    [_styleButtonOne addTarget:self action:@selector(tabBarStyleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_styleButtonOne];
+    
+    _styleButtonTwo = [UIButton buttonWithType:UIButtonTypeCustom];
+    _styleButtonTwo.frame = CGRectMake(90, TabBarStyleButtonTop, 70, 40);
+    _styleButtonTwo.backgroundColor = [UIColor blueColor];
+    [_styleButtonTwo setTitle:@"样式二" forState:UIControlStateNormal];
+    _styleButtonTwo.tag = 2;
+    [_styleButtonTwo addTarget:self action:@selector(tabBarStyleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_styleButtonTwo];
+    
+    UIButton * btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn3.frame = CGRectMake(170, TabBarStyleButtonTop, 70, 40);
+    btn3.backgroundColor = [UIColor blueColor];
+    [btn3 setTitle:@"还原" forState:UIControlStateNormal];
+    btn3.tag = 3;
+    [btn3 addTarget:self action:@selector(tabBarStyleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn3];
 }
 
-
+- (void)tabBarStyleButtonClick:(UIButton *)btn {
+    NSInteger btnTag = btn.tag;
+    if(btnTag == 1) {
+        [_bottomBar addActivityButtonWithTitle:@"" normalImgName:GoodImgURL selectedImgName:Activiety_URL];
+        _bottomBar.backImageURL = nil;
+       
+    }
+    else if(btnTag == 2){
+        [_bottomBar addBarButtonWithTitle:@"空空" normalImgName:@"tab_2" selectedImgName:ImageURL networkFaidImage:@"tab_2_h"];
+        _bottomBar.backImageURL = Activiety_URL;
+    }else {
+        [_bottomBar removeALLBar];
+        
+        [_bottomBar addBarButtonWithTitle:@"推荐" normalImgName:@"tab_0" selectedImgName:@"tab_0_h" networkFaidImage:@"tab_0_h"];
+        [_bottomBar addBarButtonWithTitle:@"分类" normalImgName:@"tab_1" selectedImgName:ImageURL networkFaidImage:@"tab_1_h"];
+        _bottomBar.backImageURL = nil;
+    }
+    
+     [_bottomBar reloadTabBarUI];
+}
 
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
@@ -103,8 +149,7 @@
     }
     
     if(self.viewControllers.count <= selectIndex) return;
-    //改变 上一个按钮的样式 为nomal
-    // 改index 按钮的样式 为selected
+    
     self.selectedIndex = selectIndex;
 }
 

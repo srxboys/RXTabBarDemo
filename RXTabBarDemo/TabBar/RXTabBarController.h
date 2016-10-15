@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface RXTabBarController : UITabBarController
-- (void)showController;
+
 @end

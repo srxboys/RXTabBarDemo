@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+//基本标签定义
+#define TabBarItem_Nomal_Image(_index) [NSString stringWithFormat:@"tab_%zd", _index]
+#define TabBarItem_selected_Image(_index) [NSString stringWithFormat:@"tab_%zd_h", _index]
+
+@class RXTabBarButton;
 @protocol RXTabBarBottomViewDelegate <NSObject>
 
 @required
-- (void)tabBarBottomBarItemClick:(NSInteger)index;
+- (BOOL)tabBarBottomBarItemClick:(RXTabBarButton *)tabBarItem;
 
 @optional
 
@@ -39,7 +44,10 @@
 - (void)insertBarButtonWithIndex:(NSInteger)num title:(NSString *)title normalImgName:(NSString *)normalImgName selectedImgName:(NSString *)selectedImgName  __deprecated_msg("废弃");
 
 /** 删除 标签 按钮 */
-- (void)removeBarButtonWithIndex:(NSInteger)num;
+//- (void)removeBarButtonWithIndex:(NSInteger)num   __deprecated_msg("废弃");
+
+/** 删除 活动标签 按钮 */
+- (void)removeBarActivityButton;
 
 - (void)removeALLBar;
 

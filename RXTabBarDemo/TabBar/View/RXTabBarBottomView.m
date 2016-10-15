@@ -29,6 +29,7 @@
 #define DEFAUL_FONT_SELECTED  [UIFont systemFontOfSize:DEFAULT_LABEL_HEIGHT]
 #define DEFAUL_COLOR_NOMAL    [UIColor darkGrayColor]
 #define DEFAUL_COLOR_SELECTED [UIColor redColor]
+#define DEFAUL_LINE_COLOR     [UIColor colorWithRed:170/255.0f green:170/255.0f blue:170/255.0f alpha:1.0f]//#AAAAAA
 
 
 @interface RXTabBarBottomView ()
@@ -43,6 +44,8 @@
     UIColor * _barSelectColor;
     
     RXTabBarButton * _currentBtn;
+    NSInteger _tagTabBar;
+    NSInteger _tag_activity;
 }
 @end
 
@@ -72,19 +75,34 @@
         _backImageView = [[FLAnimatedImageView alloc] initWithFrame:self.bounds];
         _backImageView.backgroundColor = [UIColor clearColor];
         [self addSubview:_backImageView];
+        
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, LINE_Height)];
+        _lineView.backgroundColor = DEFAUL_LINE_COLOR;
+        _lineView.tag = 1000;
+        [self addSubview:_lineView];
+        
+        _backImageView = [[FLAnimatedImageView alloc] initWithFrame:self.bounds];
+        _backImageView.backgroundColor = [UIColor clearColor];
+        _backImageView.tag = 1001;
+        [self addSubview:_backImageView];
+        _tagTabBar = 0;
+        _tag_activity = 2000;
     }
     return self;
 }
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex {
-    if(selectedIndex > _barArray.count)
-    
-    _selectedIndex = selectedIndex;
+    if(selectedIndex < _barArray.count)
+        _selectedIndex = selectedIndex;
+    [_currentBtn changeOFNomal];
+    _currentBtn = (RXTabBarButton *)[self viewWithTag:selectedIndex + 1];
+    [_currentBtn changeOFSelected];
 }
 
 - (void)setBackImageURL:(NSString *)backImageURL {
     if(backImageURL.length <= 0 || backImageURL == nil) {
-        _backImageView.image = nil;
+        _backImageView.image = [[UIImage alloc] init];
+        return;
     };
     _backImageURL = backImageURL;
     [_backImageView sd_setImageWithURL:[NSURL URLWithString:backImageURL]];
@@ -113,21 +131,45 @@
 - (void)addBarButtonWithTitle:(NSString *)title normalImgName:(NSString *)normalImgName selectedImgName:(NSString *)selectedImgName networkFaidImage:(NSString *)image{
     
     //~~~~ coding ~~~~
-    
+    _tagTabBar ++;
     RXTabBarButtonModel * model = [[RXTabBarButtonModel alloc] init];
     model.title = title;
+    if(title == nil || title.length <= 0) {
+        NSString * tabBarTitle;
+        switch (_tagTabBar - 1) {
+            case 0:
+                tabBarTitle = @"推荐";
+                break;
+            case 1:
+                tabBarTitle = @"逛";
+                break;
+            case 2:
+                tabBarTitle = @"购物车";
+                break;
+            case 3:
+                tabBarTitle = @"我的";
+                break;
+            default:
+                tabBarTitle = @"";
+                break;
+        }
+        model.title = tabBarTitle;
+    }
+    
     model.nomalFont = _barNomalFont;
     model.selectedFont = _barSelectedFont;
     model.nomalColor = _barNomalColorl;
     model.selectedColor = _barSelectColor;
-    model.nomalImage = normalImgName;
-    model.selectedImage = selectedImgName;
-    model.networkFaidImage = image;
+    model.nomalImage = normalImgName.length <= 0 ? normalImgName : TabBarItem_Nomal_Image((_tagTabBar - 1)%4);
+    model.selectedImage = selectedImgName.length <= 0 ? selectedImgName : TabBarItem_selected_Image((_tagTabBar - 1)%4);
+    model.isActivity = NO;
+    model.tagTabBar = _tagTabBar;
     [_barArray addObject:model];
     
 }
 
 - (void)addActivityButtonWithTitle:(NSString *)title normalImgName:(NSString *)normalImgName selectedImgName:(NSString *)selectedImgName {
+    _tag_activity ++;
     RXTabBarButtonModel * model = [[RXTabBarButtonModel alloc] init];
     model.title = title;
     model.nomalFont = _barNomalFont;
@@ -136,6 +178,8 @@
     model.selectedColor = _barSelectColor;
     model.nomalImage = normalImgName;
     model.selectedImage = selectedImgName;
+    model.isActivity = YES;
+    model.tagTabBar = _tag_activity - 1;
     
     [_barArray insertObject:model atIndex:_barArray.count/2];
     
@@ -145,6 +189,8 @@
 /** 插入 标签 按钮 */
 - (void)insertBarButtonWithIndex:(NSInteger)num title:(NSString *)title normalImgName:(NSString *)normalImgName selectedImgName:(NSString *)selectedImgName {
     //~~~~ coding ~~~~
+     return;
+    
     RXTabBarButtonModel * model = [[RXTabBarButtonModel alloc] init];
     model.title = title;
     model.nomalFont = _barNomalFont;
@@ -178,6 +224,11 @@
     [self reloadTabBarUI];
 }
 
+- (void)removeBarActivityButton {
+    if(_barArray.count <= 0) return;
+    [self removeBarButtonWithIndex:_barArray.count/2];
+}
+
 - (void)removeALLBar {
     [_barArray removeAllObjects];
     [self removeALLTabBarButtonView];
@@ -185,12 +236,15 @@
     [self reloadTabBarUI];
 }
 
+
 - (void)removeALLTabBarButtonView {
     for (UIView * view in self.subviews) {
         if([view isMemberOfClass:[RXTabBarButton class]]) {
             [view removeFromSuperview];
         }
     }
+    _tagTabBar = 0;
+    _tag_activity = 2000;
 }
 
 - (void)reloadTabBarUI {
@@ -217,6 +271,7 @@
             btn.tag = startIndex + 1;
             btn.model = model;
             btn.isSelected = NO;
+            btn.isActivity = model.isActivity;
             if(startIndex == 0) {
                 btn.isSelected = YES;
                 _currentBtn = btn;
@@ -239,6 +294,7 @@
         [btn setModel:model];
         [btn addTarget:self action:@selector(tabBarItmeClick:)];
         btn.isSelected = NO;
+        btn.isActivity = model.isActivity;
         if(startIndex == 0) {
             btn.isSelected = YES;
             _currentBtn = btn;
@@ -254,8 +310,17 @@
 
 - (void)tabBarItmeClick:(RXTabBarButton *)btn {
     if([self.delegate respondsToSelector:@selector(tabBarBottomBarItemClick:)]) {
-        [self changeButton:btn status:NO];
-        [self.delegate tabBarBottomBarItemClick:btn.tag - 1];
+        
+        BOOL isTrue = [self.delegate tabBarBottomBarItemClick:btn];
+        if(isTrue) {
+            if(_currentBtn.tag == btn.tag) {
+                [_currentBtn changeOFSelected];
+                return;
+            }
+            
+            [_currentBtn changeOFNomal];
+            _currentBtn = btn;
+        }
     }
 }
 

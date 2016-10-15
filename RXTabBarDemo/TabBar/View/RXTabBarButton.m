@@ -105,7 +105,7 @@
 - (void)barButtonClick {
     if(_buttonTarget) {
         
-        _isSelected = !_isSelected;
+        _isSelected = YES;
         [self changeContent];
         
          RXMsgSend(RXMsgTarget(_buttonTarget), _buttonAction, self);

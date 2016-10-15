@@ -8,6 +8,8 @@
 
 #import "RXTabBarController.h"
 #import "RXTabBarBottomView.h"
+#import "RXTabBarButton.h"
+#import "RXTabBarModel.h"
 
 #import "RXHomeViewController.h"
 #import "RXThreeViewController.h"
@@ -130,6 +132,7 @@
     }
     
      [_bottomBar reloadTabBarUI];
+    self.selectedIndex = 0;
 }
 
 
@@ -155,8 +158,25 @@
 
 
 
-- (void)tabBarBottomBarItemClick:(NSInteger)index {
-    [self setSelectIndex:index];
+- (BOOL)tabBarBottomBarItemClick:(RXTabBarButton *)tabBarItem {
+    NSInteger index = tabBarItem.model.tagTabBar - 1;
+    if(self.selectedIndex == index) {
+        return NO;
+    }
+    
+    if(self.viewControllers.count <= 0) return NO;
+
+    if(tabBarItem.isActivity) {
+//        [self homeDidLoadPush:_tabBar_activity_foucus];
+        index = 0;
+        _bottomBar.selectedIndex = 0;
+        self.selectedIndex = index;
+        return NO;
+    }
+    
+    self.selectedIndex = index;
+
+    return YES;
 }
 
 

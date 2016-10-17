@@ -160,9 +160,12 @@
 
 - (BOOL)tabBarBottomBarItemClick:(RXTabBarButton *)tabBarItem {
     NSInteger index = tabBarItem.model.tagTabBar - 1;
-    if(self.selectedIndex == index) {
-        return NO;
-    }
+    
+    
+    //如果这里打开，TabBarViewControll里的ViewControlls】和 【(没有activity)tabBar.tabBarItmes （_bottomBar addBarButtonWithTitle）】是一一对应的
+//    if(self.selectedIndex == index) {
+//        return NO;
+//    }
     
     if(self.viewControllers.count <= 0) return NO;
 

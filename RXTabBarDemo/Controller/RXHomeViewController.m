@@ -32,6 +32,13 @@
     [btn addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
+    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, 300, 200)];
+    label.numberOfLines = 0;
+    //    label.textAlignment = NSTextAlignmentCenter;
+    label.adjustsFontSizeToFitWidth = YES;
+    label.text = @"    srxboys RXTabBarDemo\nUITabBarController的UITabBar 完全自定义，你也可以看看写出自己style";
+    [self.view addSubview:label];
+    
 }
 
 - (void)buttonClick {

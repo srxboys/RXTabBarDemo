@@ -169,7 +169,7 @@
     if(tabBarItem.isActivity) {
 //        [self homeDidLoadPush:_tabBar_activity_foucus];
         index = 0;
-        _bottomBar.selectedIndex = 0;
+        [_bottomBar tabBarItmeActivityClick:tabBarItem toTabBarSelectedIndex:index];
         self.selectedIndex = index;
         return NO;
     }

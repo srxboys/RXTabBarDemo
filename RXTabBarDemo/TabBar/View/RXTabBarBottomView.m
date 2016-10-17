@@ -91,10 +91,21 @@
     return self;
 }
 
-- (void)setSelectedIndex:(NSInteger)selectedIndex {
-    if(selectedIndex < _barArray.count)
-        _selectedIndex = selectedIndex;
+//- (void)setSelectedIndex:(NSInteger)selectedIndex {
+//    if(selectedIndex < _barArray.count)
+//        _selectedIndex = selectedIndex;
+//    [_currentBtn changeOFNomal];
+//    _currentBtn = (RXTabBarButton *)[self viewWithTag:selectedIndex + 1];
+//    [_currentBtn changeOFSelected];
+//}
+
+- (NSInteger)selectedIndex {
+    return _currentBtn.tag - 1;
+}
+
+- (void)tabBarItmeActivityClick:(RXTabBarButton *)tabBarItem toTabBarSelectedIndex:(NSInteger)selectedIndex {
     [_currentBtn changeOFNomal];
+    [tabBarItem changeOFNomal];
     _currentBtn = (RXTabBarButton *)[self viewWithTag:selectedIndex + 1];
     [_currentBtn changeOFSelected];
 }
@@ -232,7 +243,7 @@
 - (void)removeALLBar {
     [_barArray removeAllObjects];
     [self removeALLTabBarButtonView];
-    _selectedIndex = 0;
+//    _selectedIndex = 0;
     [self reloadTabBarUI];
 }
 

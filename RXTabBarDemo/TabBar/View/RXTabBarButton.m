@@ -157,6 +157,7 @@
 //            NSLog(@"%@", NSStringFromCGSize(image.size));
             [weakSelf reloadButtonUI];
         }];
+        [weakSelf reloadButtonUI];
     }
     else {
         _imageView.image = [UIImage imageNamed:imageString];

@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor lightGrayColor];
     //隐藏 导航栏
 //    [self setNavitaionControllerHidden:YES animated:NO];
     //显示 导航栏

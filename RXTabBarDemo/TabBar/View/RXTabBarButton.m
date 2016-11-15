@@ -152,8 +152,8 @@
     if([imageString urlBOOL]) {
         __weak typeof(self)weakSelf = self;
         [_imageView sd_setImageWithURL:[NSURL URLWithString:imageString] placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            _imageSize = image.size;
-            _imageView.frame = CGRectMake(CGRectGetMaxX(_imageView.frame), CGRectGetMaxY(_imageView.frame), image.size.width, image.size.height);
+            _imageSize = CGSizeMake(image.size.width/2.0, image.size.height/2);
+            _imageView.frame = CGRectMake(CGRectGetMaxX(_imageView.frame), CGRectGetMaxY(_imageView.frame), _imageSize.width, _imageSize.height);
 //            NSLog(@"%@", NSStringFromCGSize(image.size));
             [weakSelf reloadButtonUI];
         }];
